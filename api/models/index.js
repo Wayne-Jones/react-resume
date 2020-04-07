@@ -25,7 +25,7 @@ export const ResumeSchema = new Schema({
             type: String,
         },
         bullet:{
-            type: String,
+            type: Array,
         }
     },
     created_date: {
