@@ -9,7 +9,6 @@ export const ResumeSchema = new Schema({
     },
     title: {
         type: String,
-        required: true
     },
     place: {
         type: String,
