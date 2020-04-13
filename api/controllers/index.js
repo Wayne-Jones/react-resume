@@ -31,6 +31,17 @@ export const addProjects = (req, res, next) => {
     })
 };
 
+export const addSkills = (req, res, next) => {
+    let newSkill = new Resume(req.body);
+
+    newSkill.save((err, skill) =>{
+        if (err){
+            res.send(err);
+        }
+        res.json(skill);
+    })
+};
+
 /*
 ***
     Getting Controllers
@@ -52,6 +63,15 @@ export const getProjects = (req, res) => {
             res.send(err);
         }
         res.json(projects);
+    })
+};
+
+export const getSkills = (req, res) => {
+    Resume.find({type: 'skills'}, (err, skills) =>{
+        if (err){
+            res.send(err);
+        }
+        res.json(skills);
     })
 };
 
@@ -79,6 +99,15 @@ export const getProjectsByID = (req, res) => {
     })
 };
 
+export const getSkillsByID = (req, res) => {
+    Resume.findById({type: 'skills', _id: req.params.SkillID}, (err, skill) =>{
+        if (err){
+            res.send(err);
+        }
+        res.json(skill);
+    })
+};
+
 /*
 ***
     Updating Controllers
@@ -103,6 +132,15 @@ export const updateProject = (req, res) => {
     })
 };
 
+export const updateSkill = (req, res) => {
+    Resume.findOneAndUpdate({type: 'skills', _id: req.params.SkillID}, req.body, {new: true}, (err, skill) =>{
+        if (err){
+            res.send(err);
+        }
+        res.json(skill);
+    })
+};
+
 /*
 ***
     Deleting Controllers
@@ -123,6 +161,15 @@ export const deleteProjectByID = (req, res) => {
         if (err){
             res.send(err);
         }
-        res.json({message: "Successfully deleted experience"});
+        res.json({message: "Successfully deleted project"});
+    })
+};
+
+export const deleteSkillByID = (req, res) => {
+    Resume.deleteOne({type: 'skills', _id: req.params.SkillID}, (err) =>{
+        if (err){
+            res.send(err);
+        }
+        res.json({message: "Successfully deleted skill"});
     })
 };

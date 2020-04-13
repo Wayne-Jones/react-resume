@@ -8,7 +8,12 @@ import { addProfessionalExperience,
     getProjects, 
     getProjectsByID, 
     updateProject, 
-    deleteProjectByID } from '../controllers/index';
+    deleteProjectByID,
+    addSkills, 
+    getSkills, 
+    getSkillsByID, 
+    updateSkill, 
+    deleteSkillByID } from '../controllers/index';
 
 const router = express.Router();
 
@@ -33,5 +38,14 @@ router.route('/project/:ProjectID')
     .get(getProjectsByID)
     .put(updateProject)
     .delete(deleteProjectByID);
+
+router.route('/skills')
+    .post(addSkills)
+    .get(getSkills);
+
+router.route('/skills/:SkillID')
+    .get(getSkillsByID)
+    .put(updateSkill)
+    .delete(deleteSkillByID);
 
 module.exports = router;
