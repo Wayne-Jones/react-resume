@@ -1,5 +1,14 @@
 import express from 'express';
-import { addProfessionalExperience, getProfessionalExperience, updateProfessionalExperience, getProfessionalExperienceByID, deleteProfessionalExperienceByID } from '../controllers/index';
+import { addProfessionalExperience, 
+    getProfessionalExperience, 
+    updateProfessionalExperience, 
+    getProfessionalExperienceByID, 
+    deleteProfessionalExperienceByID, 
+    addProjects, 
+    getProjects, 
+    getProjectsByID, 
+    updateProject, 
+    deleteProjectByID } from '../controllers/index';
 
 const router = express.Router();
 
@@ -15,5 +24,14 @@ router.route('/experience/:ExperienceID')
     .get(getProfessionalExperienceByID)
     .put(updateProfessionalExperience)
     .delete(deleteProfessionalExperienceByID);
+
+router.route('/project')
+    .post(addProjects)
+    .get(getProjects);
+
+router.route('/project/:ProjectID')
+    .get(getProjectsByID)
+    .put(updateProject)
+    .delete(deleteProjectByID);
 
 module.exports = router;
