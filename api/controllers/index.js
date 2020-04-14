@@ -42,6 +42,17 @@ export const addSkills = (req, res, next) => {
     })
 };
 
+export const addEducation = (req, res, next) => {
+    let newEducation = new Resume(req.body);
+
+    newEducation.save((err, education) =>{
+        if (err){
+            res.send(err);
+        }
+        res.json(education);
+    })
+};
+
 /*
 ***
     Getting Controllers
@@ -72,6 +83,15 @@ export const getSkills = (req, res) => {
             res.send(err);
         }
         res.json(skills);
+    })
+};
+
+export const getEducation = (req, res) => {
+    Resume.find({type: 'education'}, (err, education) =>{
+        if (err){
+            res.send(err);
+        }
+        res.json(education);
     })
 };
 
@@ -108,6 +128,15 @@ export const getSkillsByID = (req, res) => {
     })
 };
 
+export const getEducationByID = (req, res) => {
+    Resume.findById({type: 'education', _id: req.params.EducationID}, (err, education) =>{
+        if (err){
+            res.send(err);
+        }
+        res.json(education);
+    })
+};
+
 /*
 ***
     Updating Controllers
@@ -141,6 +170,15 @@ export const updateSkill = (req, res) => {
     })
 };
 
+export const updateEducation = (req, res) => {
+    Resume.findOneAndUpdate({type: 'education', _id: req.params.EducationID}, req.body, {new: true}, (err, education) =>{
+        if (err){
+            res.send(err);
+        }
+        res.json(education);
+    })
+};
+
 /*
 ***
     Deleting Controllers
@@ -171,5 +209,14 @@ export const deleteSkillByID = (req, res) => {
             res.send(err);
         }
         res.json({message: "Successfully deleted skill"});
+    })
+};
+
+export const deleteEducationByID = (req, res) => {
+    Resume.deleteOne({type: 'education', _id: req.params.EducationID}, (err) =>{
+        if (err){
+            res.send(err);
+        }
+        res.json({message: "Successfully deleted education"});
     })
 };

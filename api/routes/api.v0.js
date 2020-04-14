@@ -13,7 +13,12 @@ import { addProfessionalExperience,
     getSkills, 
     getSkillsByID, 
     updateSkill, 
-    deleteSkillByID } from '../controllers/index';
+    deleteSkillByID,
+    addEducation,
+    getEducation,
+    getEducationByID,
+    updateEducation,
+    deleteEducationByID } from '../controllers/index';
 
 const router = express.Router();
 
@@ -47,5 +52,14 @@ router.route('/skills/:SkillID')
     .get(getSkillsByID)
     .put(updateSkill)
     .delete(deleteSkillByID);
+
+router.route('/education')
+    .post(addEducation)
+    .get(getEducation);
+
+router.route('/education/:EducationID')
+    .get(getEducationByID)
+    .put(updateEducation)
+    .delete(deleteEducationByID);
 
 module.exports = router;
