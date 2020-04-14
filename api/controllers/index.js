@@ -53,6 +53,17 @@ export const addEducation = (req, res, next) => {
     })
 };
 
+export const addInterest = (req, res, next) => {
+    let newInterest = new Resume(req.body);
+
+    newInterest.save((err, interest) =>{
+        if (err){
+            res.send(err);
+        }
+        res.json(interest);
+    })
+};
+
 /*
 ***
     Getting Controllers
@@ -92,6 +103,15 @@ export const getEducation = (req, res) => {
             res.send(err);
         }
         res.json(education);
+    })
+};
+
+export const getInterest = (req, res) => {
+    Resume.find({type: 'interests'}, (err, interest) =>{
+        if (err){
+            res.send(err);
+        }
+        res.json(interest);
     })
 };
 
@@ -137,6 +157,15 @@ export const getEducationByID = (req, res) => {
     })
 };
 
+export const getInterestByID = (req, res) => {
+    Resume.findById({type: 'interests', _id: req.params.InterestID}, (err, interest) =>{
+        if (err){
+            res.send(err);
+        }
+        res.json(interest);
+    })
+};
+
 /*
 ***
     Updating Controllers
@@ -179,6 +208,15 @@ export const updateEducation = (req, res) => {
     })
 };
 
+export const updateInterest = (req, res) => {
+    Resume.findOneAndUpdate({type: 'interests', _id: req.params.InterestID}, req.body, {new: true}, (err, interest) =>{
+        if (err){
+            res.send(err);
+        }
+        res.json(interest);
+    })
+};
+
 /*
 ***
     Deleting Controllers
@@ -218,5 +256,14 @@ export const deleteEducationByID = (req, res) => {
             res.send(err);
         }
         res.json({message: "Successfully deleted education"});
+    })
+};
+
+export const deleteInterestByID = (req, res) => {
+    Resume.deleteOne({type: 'interests', _id: req.params.InterestID}, (err) =>{
+        if (err){
+            res.send(err);
+        }
+        res.json({message: "Successfully deleted interest"});
     })
 };

@@ -1,24 +1,9 @@
 import express from 'express';
-import { addProfessionalExperience, 
-    getProfessionalExperience, 
-    updateProfessionalExperience, 
-    getProfessionalExperienceByID, 
-    deleteProfessionalExperienceByID, 
-    addProjects, 
-    getProjects, 
-    getProjectsByID, 
-    updateProject, 
-    deleteProjectByID,
-    addSkills, 
-    getSkills, 
-    getSkillsByID, 
-    updateSkill, 
-    deleteSkillByID,
-    addEducation,
-    getEducation,
-    getEducationByID,
-    updateEducation,
-    deleteEducationByID } from '../controllers/index';
+import { addProfessionalExperience, getProfessionalExperience, updateProfessionalExperience, getProfessionalExperienceByID, deleteProfessionalExperienceByID, 
+    addProjects, getProjects, getProjectsByID, updateProject, deleteProjectByID, 
+    addSkills, getSkills, getSkillsByID, updateSkill, deleteSkillByID, 
+    addEducation, getEducation, getEducationByID, updateEducation, deleteEducationByID, 
+    addInterest, getInterest, getInterestByID, updateInterest, deleteInterestByID } from '../controllers/index';
 
 const router = express.Router();
 
@@ -61,5 +46,14 @@ router.route('/education/:EducationID')
     .get(getEducationByID)
     .put(updateEducation)
     .delete(deleteEducationByID);
+
+router.route('/interests')
+    .post(addInterest)
+    .get(getInterest);
+
+router.route('/interests/:InterestID')
+    .get(getInterestByID)
+    .put(updateInterest)
+    .delete(deleteInterestByID);
 
 module.exports = router;
