@@ -64,6 +64,27 @@ export const addInterest = (req, res, next) => {
     })
 };
 
+export const addHeading = (req, res, next) => {
+    let newHeading = new Resume(req.body);
+    newHeading.find({type: 'heading'}, (err, heading) =>{
+        if (err){
+            res.send(err);
+        }
+        else if (heading.length){
+            res.json({message: "Heading already exists in database"});
+        }
+        else{
+            newHeading.save((err, heading) =>{
+                if (err){
+                    res.send(err);
+                }
+                res.json(heading);
+            })
+        }
+    })
+    
+};
+
 /*
 ***
     Getting Controllers
@@ -112,6 +133,15 @@ export const getInterest = (req, res) => {
             res.send(err);
         }
         res.json(interest);
+    })
+};
+
+export const getHeading = (req, res) => {
+    Resume.find({type: 'heading'}, (err, heading) =>{
+        if (err){
+            res.send(err);
+        }
+        res.json(heading);
     })
 };
 
@@ -166,6 +196,15 @@ export const getInterestByID = (req, res) => {
     })
 };
 
+export const getHeadingByID = (req, res) => {
+    Resume.findById({type: 'heading', _id: req.params.HeadingID}, (err, heading) =>{
+        if (err){
+            res.send(err);
+        }
+        res.json(heading);
+    })
+};
+
 /*
 ***
     Updating Controllers
@@ -217,6 +256,15 @@ export const updateInterest = (req, res) => {
     })
 };
 
+export const updateHeading = (req, res) => {
+    Resume.findOneAndUpdate({type: 'heading', _id: req.params.HeadingID}, req.body, {new: true}, (err, heading) =>{
+        if (err){
+            res.send(err);
+        }
+        res.json(heading);
+    })
+};
+
 /*
 ***
     Deleting Controllers
@@ -265,5 +313,14 @@ export const deleteInterestByID = (req, res) => {
             res.send(err);
         }
         res.json({message: "Successfully deleted interest"});
+    })
+};
+
+export const deleteHeadingByID = (req, res) => {
+    Resume.deleteOne({type: 'heading', _id: req.params.HeadingID}, (err) =>{
+        if (err){
+            res.send(err);
+        }
+        res.json({message: "Successfully deleted heading"});
     })
 };
