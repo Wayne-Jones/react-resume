@@ -16,16 +16,16 @@ export const ResumeSchema = new Schema({
     date: {
         type: String,
     },
-    links: {
-        type: Array,
-    },
+    links: [{
+        type: String,
+    }],
     content: {
         body:{
             type: String,
         },
-        bullet:{
-            type: Array,
-        }
+        bullet:[{
+            type: String,
+        }]
     },
     created_date: {
         type: Date,
