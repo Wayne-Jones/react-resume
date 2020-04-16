@@ -1,1 +1,1 @@
-Creating a React Boilerplate frontend and backend app using Create React App and NodeJS + Express.
+Creating a Resume Template using React JS as well as Node/Express with a MongoDB serving data
