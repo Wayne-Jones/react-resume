@@ -4,7 +4,8 @@ import { addProfessionalExperience, getProfessionalExperience, updateProfessiona
     addSkills, getSkills, getSkillsByID, updateSkill, deleteSkillByID, 
     addEducation, getEducation, getEducationByID, updateEducation, deleteEducationByID, 
     addInterest, getInterest, getInterestByID, updateInterest, deleteInterestByID,
-    addHeading, getHeading, getHeadingByID, updateHeading, deleteHeadingByID } from '../controllers/index';
+    addHeading, getHeading, getHeadingByID, updateHeading, deleteHeadingByID,
+    addSummary, getSummary, getSummaryByID, updateSummary, deleteSummaryByID } from '../controllers/index';
 
 const router = express.Router();
 
@@ -65,5 +66,14 @@ router.route('/heading/:HeadingID')
     .get(getHeadingByID)
     .put(updateHeading)
     .delete(deleteHeadingByID);
+
+router.route('/summary')
+    .post(addSummary)
+    .get(getSummary);
+
+router.route('/summary/:HeadingID')
+    .get(getSummaryByID)
+    .put(updateSummary)
+    .delete(deleteSummaryByID);
 
 module.exports = router;

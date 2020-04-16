@@ -85,6 +85,27 @@ export const addHeading = (req, res, next) => {
     
 };
 
+export const addSummary = (req, res, next) => {
+    let newSummary = new Resume(req.body);
+    newSummary.find({type: 'summary'}, (err, summary) =>{
+        if (err){
+            res.send(err);
+        }
+        else if (summary.length){
+            res.json({message: "Summary already exists in database"});
+        }
+        else{
+            newSummary.save((err, summary) =>{
+                if (err){
+                    res.send(err);
+                }
+                res.json(summary);
+            })
+        }
+    })
+    
+};
+
 /*
 ***
     Getting Controllers
@@ -142,6 +163,15 @@ export const getHeading = (req, res) => {
             res.send(err);
         }
         res.json(heading);
+    })
+};
+
+export const getSummary = (req, res) => {
+    Resume.find({type: 'summary'}, (err, summary) =>{
+        if (err){
+            res.send(err);
+        }
+        res.json(summary);
     })
 };
 
@@ -205,6 +235,15 @@ export const getHeadingByID = (req, res) => {
     })
 };
 
+export const getSummaryByID = (req, res) => {
+    Resume.findById({type: 'summary', _id: req.params.SummaryID}, (err, summary) =>{
+        if (err){
+            res.send(err);
+        }
+        res.json(summary);
+    })
+};
+
 /*
 ***
     Updating Controllers
@@ -265,6 +304,15 @@ export const updateHeading = (req, res) => {
     })
 };
 
+export const updateSummary = (req, res) => {
+    Resume.findOneAndUpdate({type: 'summary', _id: req.params.SummaryID}, req.body, {new: true}, (err, summary) =>{
+        if (err){
+            res.send(err);
+        }
+        res.json(summary);
+    })
+};
+
 /*
 ***
     Deleting Controllers
@@ -322,5 +370,14 @@ export const deleteHeadingByID = (req, res) => {
             res.send(err);
         }
         res.json({message: "Successfully deleted heading"});
+    })
+};
+
+export const deleteSummaryByID = (req, res) => {
+    Resume.deleteOne({type: 'summary', _id: req.params.SummaryID}, (err) =>{
+        if (err){
+            res.send(err);
+        }
+        res.json({message: "Successfully deleted summary"});
     })
 };
