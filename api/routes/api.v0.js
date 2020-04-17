@@ -71,7 +71,7 @@ router.route('/summary')
     .post(addSummary)
     .get(getSummary);
 
-router.route('/summary/:HeadingID')
+router.route('/summary/:SummaryID')
     .get(getSummaryByID)
     .put(updateSummary)
     .delete(deleteSummaryByID);
