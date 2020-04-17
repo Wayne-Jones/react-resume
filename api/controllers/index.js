@@ -66,7 +66,7 @@ export const addInterest = (req, res, next) => {
 
 export const addHeading = (req, res, next) => {
     let newHeading = new Resume(req.body);
-    newHeading.find({type: 'heading'}, (err, heading) =>{
+    Resume.find({type: 'heading'}, (err, heading) =>{
         if (err){
             res.send(err);
         }
@@ -87,7 +87,7 @@ export const addHeading = (req, res, next) => {
 
 export const addSummary = (req, res, next) => {
     let newSummary = new Resume(req.body);
-    newSummary.find({type: 'summary'}, (err, summary) =>{
+    Resume.find({type: 'summary'}, (err, summary) =>{
         if (err){
             res.send(err);
         }
