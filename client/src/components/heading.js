@@ -1,31 +1,37 @@
 import React, { useState, useEffect } from 'react';
 
 function Heading() {
-    
-  const[name, setName] = useState("");
-  const[subtitle, setSubtitle] = useState("");
-  const[links, setLinks] = useState([]);
-
-  useEffect(() => {
-    getHeading()
-  }, [])
+  const [heading, setHeading] = useState([]);
 
   const getHeading = () => {
-    fetch("http://localhost:4000/api/heading")
-      .then(resp => resp.json())
-      .then(data => {
-        data.map((headingObj) =>{
-            setName(headingObj.title);
-            setSubtitle(headingObj.content.body);
-            setLinks(headingObj.links);
-        });
+    fetch('http://localhost:5000/api/heading')
+      .then((resp) => resp.json())
+      .then((data) => {
+        const singleHeading = data.map((headingObj) => (
+          <div key={headingObj._id}>
+            <h1>{headingObj.title}</h1>
+            <h3>{headingObj.content.body}</h3>
+            <ul>
+              {headingObj.links.map((link) => (
+                <li>{link}</li>
+              ))}
+            </ul>
+          </div>
+        ));
+        setHeading(singleHeading);
       });
   };
-    return (
-        <div>
-            {name} {subtitle} {links}
-        </div>
-    )
+
+  useEffect(() => {
+    getHeading();
+  }, []);
+
+
+  return (
+    <>
+      {heading}
+    </>
+  );
 }
 
-export default Heading
+export default Heading;
